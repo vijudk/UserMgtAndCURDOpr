@@ -1,0 +1,56 @@
+﻿@model IEnumerable<UserMgtAndCURDOpr.Models.Projects>
+
+<p>
+    <br />
+    <br />
+    @Html.ActionLink("Create New Project", "AddProjects")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProjectId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProjectName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ClientName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProjDescription)
+    </td>
+
+
+    @if ((User.IsInRole("Employee")) || (User.IsInRole("Admin"))) { 
+
+
+        <td>
+
+            @Html.ActionLink("Update", "UpdateProjectDetail", new { item.ProjectId }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "DeleteProjects", new { item.ProjectId }, new { onclick = "return confirm('Are sure wants to delete?');" })
+
+        </td>
+    }
+
+</tr>
+}
+
+</table>
